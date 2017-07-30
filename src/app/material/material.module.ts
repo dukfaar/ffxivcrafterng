@@ -11,6 +11,7 @@ import {
   MdToolbarModule,
   MdIconModule,
   MdGridListModule,
+  MdInputModule
 } from '@angular/material'
 
 const modulesToExport = [
@@ -22,7 +23,8 @@ const modulesToExport = [
   MdIconModule,
   MdGridListModule,
   FlexLayoutModule,
-  MdToolbarModule
+  MdToolbarModule,
+  MdInputModule
 ]
 
 @NgModule({

@@ -8,7 +8,7 @@
     Hello 2
   </div>
 
-  <button md-button ui-sref="auth.register" ng-if="!hdrctr.hdrvars.authenticated">
+  <button md-button ui-sref="auth.register" *ngIf="!user.loggedIn()">
     Join
   </button>
   <button md-button ui-sref="auth.login" ng-if="!hdrctr.hdrvars.authenticated">

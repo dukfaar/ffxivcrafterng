@@ -1,0 +1,14 @@
+<md-card>
+  <md-card-content fxLayout="column">
+    <md-input-container>
+      <input mdInput type="text" placeholder="Email" name="email" [(ngModel)]="email"/>
+    </md-input-container>
+
+    <md-input-container>
+      <input mdInput type="password" placeholder="Password" name="password" [(ngModel)]="password"/>
+    </md-input-container>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button color="primary" (click)="user.login(email, password)">Login</button>
+  </md-card-actions>
+</md-card>

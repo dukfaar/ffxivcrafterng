@@ -2,6 +2,8 @@ import { Component } from '@angular/core'
 
 import { HttpClient } from '@angular/common/http'
 
+import { UserService } from '../user/user.service'
+
 interface MenuEntry {
   link: string
   name: string
@@ -19,9 +21,14 @@ export class SidenavContentComponent {
   mainMenu: MenuEntry[]
   accountMenu: MenuEntry[]
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private user: UserService) {
     this.queryMainMenu()
     this.queryAccountMenu()
+
+    this.user.onLoginStatusChanged.subscribe(value => {
+      this.queryMainMenu()
+      this.queryAccountMenu()
+    })
   }
 
   queryMainMenu() {

@@ -20,7 +20,8 @@ import { MaterialModule } from './material/material.module'
     BaseModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
