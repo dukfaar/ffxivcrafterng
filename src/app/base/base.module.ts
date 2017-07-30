@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms'
 
 import { NewsCardComponent } from './news/news-card.component'
 import { SidenavContentComponent } from './sidenav/sidenav-content.component'
+import { SidenavMenuComponent } from './sidenav/sidenav-menu.component'
 import { TextFormatter } from './text-formatter/text-formatter.pipe'
 import { UserService } from './user/user.service'
 import { UserTokenService } from './user/user-token.service'
@@ -19,6 +20,7 @@ import { AuthInterceptor } from './user/auth.interceptor'
     //Components
     NewsCardComponent,
     SidenavContentComponent,
+    SidenavMenuComponent,
     LoginFormComponent,
 
     //Pipes

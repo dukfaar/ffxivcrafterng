@@ -1,0 +1,4 @@
+<div *ngFor="let item of menu">
+  <a md-button>{{item.title}}</a>
+  <sidenav-menu *ngIf="item.submenus.length > 0" [menu]="item.submenus"></sidenav-menu>
+</div>

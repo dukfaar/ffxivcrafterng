@@ -1,17 +1,23 @@
 <div fxLayout="column" style="padding:8px">
   <h2 style="text-align: center">RainCollector</h2>
 
-  <div>
-    Hello
-  </div>
-  <div>
-    Hello 2
-  </div>
+  <sidenav-menu [menu]="mainMenuList"></sidenav-menu>
 
   <button md-button ui-sref="auth.register" *ngIf="!user.loggedIn()">
     Join
   </button>
-  <button md-button ui-sref="auth.login" ng-if="!hdrctr.hdrvars.authenticated">
+  <button md-button ui-sref="auth.login" *ngIf="!user.loggedIn()">
     Login
+  </button>
+
+  <md-menu #accountMenu="mdMenu" fxLayout="column">
+    <a md-menu-item *ngFor="let item of accountMenuList">
+      {{item.title}}
+    </a>
+  </md-menu>
+
+  <button *ngIf="user.loggedIn()" md-button [mdMenuTriggerFor]="accountMenu">
+    Username
+    <md-icon>keyboard_arrow_down</md-icon>
   </button>
 </div>

@@ -4,22 +4,15 @@ import { HttpClient } from '@angular/common/http'
 
 import { UserService } from '../user/user.service'
 
-interface MenuEntry {
-  link: string
-  name: string
-  roles: string[]
-  submenus: MenuEntry[]
-  title: string
-  weight: number
-}
+import { MenuEntry } from './MenuEntry.type'
 
 @Component({
   selector: 'sidenav-content',
   templateUrl: './sidenav-content.component.html'
 })
 export class SidenavContentComponent {
-  mainMenu: MenuEntry[]
-  accountMenu: MenuEntry[]
+  private mainMenuList: MenuEntry[] = []
+  private accountMenuList: MenuEntry[] = []
 
   constructor(private http: HttpClient, private user: UserService) {
     this.queryMainMenu()
@@ -34,14 +27,14 @@ export class SidenavContentComponent {
   queryMainMenu() {
     this.http.get<MenuEntry[]>('https://localhost:3001/api/admin/menu/main')
     .subscribe(response => {
-      this.mainMenu = response
+      this.mainMenuList = response
     })
   }
 
   queryAccountMenu() {
     this.http.get<MenuEntry[]>('https://localhost:3001/api/admin/menu/account')
     .subscribe(response => {
-      this.accountMenu = response
+      this.accountMenuList = response
     })
   }
 }
