@@ -1,4 +1,4 @@
-<div *ngFor="let item of menu">
-  <a md-button routerLink="{{item.link}}">{{item.title}}</a>
+<div *ngFor="let item of menu" fxLayout="column">
+  <a fxLayout="row" md-button routerLink="{{item.link | menulink}}">{{item.title}}</a>
   <sidenav-menu *ngIf="item.submenus.length > 0" [menu]="item.submenus"></sidenav-menu>
 </div>
