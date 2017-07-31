@@ -9,6 +9,9 @@ import { AppComponent } from './app.component'
 import { BaseModule } from './base/base.module'
 import { MaterialModule } from './material/material.module'
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HostnameInterceptor } from './hostname.interceptor'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +24,11 @@ import { MaterialModule } from './material/material.module'
     MaterialModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HostnameInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
