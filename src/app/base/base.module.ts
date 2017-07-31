@@ -10,10 +10,20 @@ import { TextFormatter } from './text-formatter/text-formatter.pipe'
 import { UserService } from './user/user.service'
 import { UserTokenService } from './user/user-token.service'
 import { LoginFormComponent } from './user/login-form/login-form.component'
+import { PageNotFoundComponent } from './page-not-found.component'
+import { HomeComponent } from './home/home.component'
 
 import { MaterialModule } from '../material/material.module'
 
 import { AuthInterceptor } from './user/auth.interceptor'
+
+import { RouterModule, Routes } from '@angular/router'
+
+const moduleRoutes: Routes = [
+  { path: '', component: HomeComponent  }, //Home Path
+  { path: 'auth/login', component: LoginFormComponent },
+  { path: '**', component: PageNotFoundComponent } //NotFound
+]
 
 @NgModule({
   declarations: [
@@ -22,6 +32,8 @@ import { AuthInterceptor } from './user/auth.interceptor'
     SidenavContentComponent,
     SidenavMenuComponent,
     LoginFormComponent,
+    PageNotFoundComponent,
+    HomeComponent,
 
     //Pipes
     TextFormatter
@@ -29,7 +41,8 @@ import { AuthInterceptor } from './user/auth.interceptor'
   imports: [
     MaterialModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    RouterModule.forChild(moduleRoutes)
   ],
   exports: [
     NewsCardComponent,

@@ -12,6 +12,8 @@ import { MaterialModule } from './material/material.module'
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HostnameInterceptor } from './hostname.interceptor'
 
+import  { RouterModule, Routes } from '@angular/router'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +23,8 @@ import { HostnameInterceptor } from './hostname.interceptor'
     BrowserAnimationsModule,
     HttpClientModule,
     BaseModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule.forRoot([])
   ],
   providers: [
     {

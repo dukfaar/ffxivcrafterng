@@ -3,10 +3,10 @@
 
   <sidenav-menu [menu]="mainMenuList"></sidenav-menu>
 
-  <button md-button ui-sref="auth.register" *ngIf="!user.loggedIn()">
+  <button md-button routerLink="/auth/register" *ngIf="!user.loggedIn()">
     Join
   </button>
-  <button md-button ui-sref="auth.login" *ngIf="!user.loggedIn()">
+  <button md-button routerLink="/auth/login" *ngIf="!user.loggedIn()">
     Login
   </button>
 
