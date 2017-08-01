@@ -10,6 +10,7 @@ import { BaseModule } from './base/base.module'
 import { NewsModule } from './news/news.module'
 import { PagesModule } from './pages/pages.module'
 import { MaterialModule } from './material/material.module'
+import { SocketModule } from './socket/socket.module'
 
 import { WildcardRoutingModule } from './wildcard-routing/wildcard-routing.module'
 
