@@ -11,6 +11,7 @@ import { NewsModule } from './news/news.module'
 import { PagesModule } from './pages/pages.module'
 import { MaterialModule } from './material/material.module'
 import { SocketModule } from './socket/socket.module'
+import { ProjectsModule } from './projects/projects.module'
 
 import { WildcardRoutingModule } from './wildcard-routing/wildcard-routing.module'
 
@@ -31,6 +32,7 @@ import  { RouterModule, Routes } from '@angular/router'
     NewsModule,
     PagesModule,
     MaterialModule,
+    ProjectsModule,
     RouterModule.forRoot([]),
 
     WildcardRoutingModule //this MUST be last to work properly

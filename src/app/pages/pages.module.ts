@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component'
 
 import { BaseModule } from '../base/base.module'
 import { NewsModule } from '../news/news.module'
+import { ProjectsModule } from '../projects/projects.module'
 
 import { RouterModule, Routes } from '@angular/router'
 
@@ -29,6 +30,7 @@ const moduleRoutes: Routes = [
     FormsModule,
     BaseModule,
     NewsModule,
+    ProjectsModule,
     RouterModule.forChild(moduleRoutes),
   ],
   exports: [
