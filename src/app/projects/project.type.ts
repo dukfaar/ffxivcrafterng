@@ -8,4 +8,5 @@ export interface Project {
   public: boolean
   price: number
   state: string
+  hiddenOnOverviewBy: string[]
 }
