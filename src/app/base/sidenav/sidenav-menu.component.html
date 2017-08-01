@@ -1,4 +1,7 @@
 <div *ngFor="let item of menu" fxLayout="column">
-  <a fxLayout="row" md-button routerLink="{{item.link | menulink}}">{{item.title}}</a>
-  <sidenav-menu *ngIf="item.submenus.length > 0" [menu]="item.submenus"></sidenav-menu>
+  <a *ngIf="item.link" fxLayout="row" md-button routerLink="{{item.link | menulink}}">{{item.title}}</a>
+  <a *ngIf="!item.link" fxLayout="row" md-button disabled>{{item.title}}</a>
+  <div *ngIf="item.submenus.length > 0" style="padding-left:1em">
+    <sidenav-menu [menu]="item.submenus"></sidenav-menu>
+  </div>
 </div>
