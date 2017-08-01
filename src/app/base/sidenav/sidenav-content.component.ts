@@ -37,7 +37,7 @@ export class SidenavContentComponent {
   }
 
   queryMainMenu() {
-    this.http.get<MenuEntry[]>('https://localhost:3001/api/admin/menu/main')
+    this.http.get<MenuEntry[]>('/api/admin/menu/main')
     .subscribe(response => {
       this.mainMenuList = response
       this.mainMenuList = this.sortMenu(this.mainMenuList)
@@ -45,7 +45,7 @@ export class SidenavContentComponent {
   }
 
   queryAccountMenu() {
-    this.http.get<MenuEntry[]>('https://localhost:3001/api/admin/menu/account')
+    this.http.get<MenuEntry[]>('/api/admin/menu/account')
     .subscribe(response => {
       this.accountMenuList = response
       this.accountMenuList = this.sortMenu(this.accountMenuList)

@@ -15,7 +15,7 @@ interface ApplicationSettingResponseEntry {
   templateUrl: './news-card.component.html'
 })
 export class NewsCardComponent {
-  private newsTextQuery = this.http.get<ApplicationSettingResponseEntry[]>('https://localhost:3001/api/rest/applicationsetting?name=newsText')
+  private newsTextQuery = this.http.get<ApplicationSettingResponseEntry[]>('/api/rest/applicationsetting?name=newsText')
   newsText: string = 'Loading...'
 
   constructor(private http: HttpClient, private socket: SocketService) {
