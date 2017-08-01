@@ -17,7 +17,7 @@
   </md-menu>
 
   <button *ngIf="user.loggedIn()" md-button [mdMenuTriggerFor]="accountMenu">
-    {{user.user.username}}
+    {{user.user?.username}}
     <md-icon>keyboard_arrow_down</md-icon>
   </button>
 </div>
