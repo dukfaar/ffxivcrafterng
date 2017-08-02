@@ -7,6 +7,8 @@ import { MaterialModule } from '../material/material.module'
 import { PublicProjectService } from './public-projects.service'
 import { SocketModule } from '../socket/socket.module'
 import { BaseModule } from '../base/base.module'
+import { ItemModule } from '../item/item.module'
+import { ProjectAnalysisService } from './project-analysis.service'
 
 import { CraftscatCornerComponent } from './craftscat-corner/craftscat-corner.component'
 
@@ -19,10 +21,12 @@ import { CraftscatCornerComponent } from './craftscat-corner/craftscat-corner.co
     FormsModule,
     CommonModule,
     SocketModule,
-    BaseModule
+    BaseModule,
+    ItemModule
   ],
   providers: [
-    PublicProjectService
+    PublicProjectService,
+    ProjectAnalysisService
   ],
   exports: [
     CraftscatCornerComponent

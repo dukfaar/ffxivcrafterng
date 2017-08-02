@@ -1,3 +1,6 @@
+import { ProjectStockEntry } from './project-stock-entry.type'
+import { Step } from './step.type'
+
 export interface Project {
   _id: string
   name: string
@@ -8,5 +11,7 @@ export interface Project {
   public: boolean
   price: number
   state: string
+  tree: Step
   hiddenOnOverviewBy: string[]
+  stock: ProjectStockEntry[]
 }
