@@ -1,0 +1,12 @@
+<button md-icon-button *ngIf="step.workedOnBy && step.workedOnBy.length > 0 && !isWorkedByMe()">
+  <md-icon style="color: orange">pets</md-icon>
+  <!--<md-tooltip><span translate translate-value-name="{{step.workedOnBy[0].name}}">step.workedon</span></md-tooltip>-->
+</button>
+<button md-icon-button *ngIf="step.workedOnBy && step.workedOnBy.length > 0 && isWorkedByMe()">
+  <md-icon style="color: green" ga-track-event="['gathering step paw', 'marked as not worked', 'manual']" (click)="removeMarkStepAsWorked(); $event.stopPropagation();">pets</md-icon>
+  <!--<md-tooltip><span translate>step.youworkedon</span></md-tooltip>-->
+</button>
+<button md-icon-button *ngIf="!step.workedOnBy || step.workedOnBy.length == 0">
+  <md-icon style="color: grey" ga-track-event="['gathering step paw', 'marked as worked', 'manual']" (click)="markStepAsWorked(); $event.stopPropagation();">pets</md-icon>
+  <!--<md-tooltip><span translate>step.noneworkedon</span></md-tooltip>-->
+</button>

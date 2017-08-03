@@ -1,5 +1,5 @@
-<div fxLayout="row" fxLayoutGap="8px" style="padding:8px">
+<div fxLayout="row" fxLayoutGap="8px" style="padding:8px;">
   <news-card fxFlex="60"></news-card>
 
-  <craftscat-corner fxFlex="40"></craftscat-corner>
+  <craftscat-corner fxFlex="40" *ngIf="user.allowed('see public gather tasks') || user.allowed('see public craft tasks')"></craftscat-corner>
 </div>

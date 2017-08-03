@@ -1,0 +1,9 @@
+<button fxFlexFill md-button style="padding-left: 1em" *ngIf="step.step.amount >= 1" (click)="clicked()">
+  <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
+    <div>
+      {{step.step.amount}} {{step.step.item.name}}
+    </div>
+    <div fxFlex></div>
+    <step-paw [step]="step.step.step"></step-paw>
+  </div>
+</button>

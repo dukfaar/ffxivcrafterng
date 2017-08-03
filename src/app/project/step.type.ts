@@ -1,5 +1,6 @@
 import { Item } from '../item/item.type'
 import { Recipe } from '../recipe/recipe.type'
+import { UserModel } from '../base/user/user.type'
 
 type StepType = 'Meta' | 'Gather' | 'Craft' | 'Buy'
 
@@ -9,6 +10,7 @@ export class Step {
   amount: number
   hq: boolean
   inputs: Step[]
-  item: Item,
+  item: Item
   recipe: Recipe
+  workedOnBy: UserModel[]
 }

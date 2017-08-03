@@ -11,10 +11,16 @@ import { ItemModule } from '../item/item.module'
 import { ProjectAnalysisService } from './project-analysis.service'
 
 import { CraftscatCornerComponent } from './craftscat-corner/craftscat-corner.component'
+import { CraftableStepComponent } from './craftscat-corner/craftable-step.component'
+import { GatherableStepComponent } from './craftscat-corner/gatherable-step.component'
+import { StepPawComponent } from './craftscat-corner/step-paw.component'
 
 @NgModule({
   declarations: [
-    CraftscatCornerComponent
+    CraftscatCornerComponent,
+    CraftableStepComponent,
+    GatherableStepComponent,
+    StepPawComponent
   ],
   imports: [
     MaterialModule,
@@ -29,9 +35,12 @@ import { CraftscatCornerComponent } from './craftscat-corner/craftscat-corner.co
     ProjectAnalysisService
   ],
   exports: [
-    CraftscatCornerComponent
+    CraftscatCornerComponent,
+    CraftableStepComponent,
+    GatherableStepComponent,
+    StepPawComponent
   ]
 })
-export class ProjectsModule {
+export class ProjectModule {
 
 }

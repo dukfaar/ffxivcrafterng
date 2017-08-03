@@ -10,14 +10,24 @@ import { CraftableStep } from './craftable-step.type'
 
 import * as _ from 'lodash'
 
+class StepData {
+  amountDone: number
+  neededAmount: number
+  neededSteps: number
+  maxSteps: number
+  neededInputs: {}
+  availableInputs: {}
+  neededItems: {}
+}
+
 @Injectable()
 export class ProjectAnalysisService {
   private analyzeStep(step: Step, analysisData: ProjectAnalysisData): void {
     switch(step.step) {
-      case 'Gather': this.gatheringStep(step, analysisData)
-      case 'Craft': this.craftingStep(step, analysisData)
-      case 'Buy': this.buyingStep(step, analysisData)
-      case 'Meta': this.metaStep(step, analysisData)
+      case 'Gather': this.gatheringStep(step, analysisData); return;
+      case 'Craft': this.craftingStep(step, analysisData); return;
+      case 'Buy': this.buyingStep(step, analysisData); return;
+      case 'Meta': this.metaStep(step, analysisData); return;
     }
   }
 
@@ -68,8 +78,42 @@ export class ProjectAnalysisService {
     return analysisData.buyList[lookup]
   }
 
-  function craftingStep (step: Step, analysisData: ProjectAnalysisData) {
-    var stepData = getMaxCraftableSteps(step, analysisData)
+  private getMaxCraftableSteps(step: Step, analysisData: ProjectAnalysisData): StepData {
+    let result = new StepData()
+
+    result.amountDone = analysisData.getItemAmountInStock(step.item._id, step.hq)
+    result.neededAmount = step.amount - result.amountDone
+
+    result.neededSteps = Math.ceil(result.neededAmount / step.recipe.outputs[0].amount) // how often we need to craft the recipe to fulfill the need
+    result.maxSteps = result.neededSteps // how often we can craft the recipe, with our input materials
+
+    result.neededInputs = {}
+    result.availableInputs = {}
+    result.neededItems = {}
+
+    step.recipe.inputs.forEach((input) => {
+      var neededItems = input.amount * result.neededSteps
+
+      var itemsInStock = analysisData.getItemAmountInStock(input.item, this.findInputByItem(step.inputs, input.item).hq) // 50
+      var remainingNeeded = Math.max(0, neededItems - itemsInStock)
+
+      var possibleSteps = itemsInStock > 0 ? itemsInStock / input.amount : 0
+
+      result.neededItems[input.item] = neededItems
+      result.availableInputs[input.item] = itemsInStock
+      result.neededInputs[input.item] = remainingNeeded
+      result.maxSteps = Math.min(result.maxSteps, possibleSteps)
+    })
+
+    return result
+  }
+
+  private findInputByItem(inputs: Step[], itemId: string) {
+    return _.find(inputs, (input) => { return input.item._id === itemId })
+  }
+
+  private craftingStep(step: Step, analysisData: ProjectAnalysisData) {
+    let stepData: StepData = this.getMaxCraftableSteps(step, analysisData)
 
     if (stepData.neededAmount > 0) {
       // we need to craft
@@ -91,7 +135,7 @@ export class ProjectAnalysisService {
 
         // and remove every item that would be used in this crafting steps
         _.each(step.recipe.inputs,(input) => {
-          var stepInput = findInputByItem(step.inputs, input.item)
+          var stepInput = this.findInputByItem(step.inputs, input.item)
           analysisData.markStockAsRequiredBy(input.item, stepInput.hq, step)
           analysisData.deductFromUnallocatedStock(input.item, Math.min(stepData.availableInputs[input.item],stepData.neededItems[input.item]) /*input.amount * stepData.maxSteps*/, stepInput.hq)
         })
@@ -114,7 +158,7 @@ export class ProjectAnalysisService {
       no crafting needed
       deduce this steps items from the stock and be done
       */
-      this.deductFromUnallocatedStock(step.item._id, step.amount, step.hq)
+      analysisData.deductFromUnallocatedStock(step.item._id, step.amount, step.hq)
     }
   }
 
@@ -150,11 +194,14 @@ export class ProjectAnalysisService {
 
     this.analyzeStep(project.tree, analysisData)
 
+    analysisData.craftableStepsList = _.filter(analysisData.craftableSteps, e => e.step.amount >= 1)
+    analysisData.gatherListArray = _.filter(_.values(analysisData.gatherList), e => e.outstanding >= 1)
+    analysisData.buyListArray = _.filter(_.values(analysisData.buyList), e => e.outstanding >= 1)
+
     analysisData.revenue = this.stepPrice(project.tree)
     analysisData.profit = analysisData.revenue * 0.95 - analysisData.totalCost
     analysisData.relativeProfit = (analysisData.profit / analysisData.totalCost) * 100
 
-    console.log(analysisData)
     return analysisData
   }
 }

@@ -10,12 +10,15 @@ import * as _ from 'lodash'
 
 export class ProjectAnalysisData {
   project: Project
-  stockRequirements: {[item: string]: Step[]}
-  gatherList: {[item: string]: GatherListEntry}
+  stockRequirements: {[item: string]: Step[]} = {}
+  gatherList: {[item: string]: GatherListEntry} = {}
+  gatherListArray: GatherListEntry[] = []
   stepData: {}
-  buyList: {[item: string]: BuyListEntry}
-  craftableSteps: CraftableStep[]
-  unallocatedStock: ProjectStockEntry[]
+  buyList: {[item: string]: BuyListEntry} = {}
+  buyListArray: BuyListEntry[] = []
+  craftableSteps: CraftableStep[] = []
+  craftableStepsList: CraftableStep[] = []
+  unallocatedStock: ProjectStockEntry[] = []
   totalCost: number
   revenue: number
   profit: number
