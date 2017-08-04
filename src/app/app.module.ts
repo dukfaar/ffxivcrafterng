@@ -18,7 +18,15 @@ import { WildcardRoutingModule } from './wildcard-routing/wildcard-routing.modul
 import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HostnameInterceptor } from './hostname.interceptor'
 
-import  { RouterModule, Routes } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
+import { RestangularModule } from 'ngx-restangular'
+
+export function RestangularConfigFactory (RestangularProvider) {
+  RestangularProvider.setBaseUrl('https://' + window.location.hostname + ':3001/api')
+  RestangularProvider.setRestangularFields({
+    id: "_id"
+  })
+}
 
 @NgModule({
   declarations: [
@@ -34,6 +42,7 @@ import  { RouterModule, Routes } from '@angular/router'
     MaterialModule,
     ProjectModule,
     RouterModule.forRoot([]),
+    RestangularModule.forRoot(RestangularConfigFactory),
 
     WildcardRoutingModule //this MUST be last to work properly
   ],

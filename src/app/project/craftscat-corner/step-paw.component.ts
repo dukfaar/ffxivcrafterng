@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core'
 import { Step } from '../step.type'
 
 import { UserService } from '../../base/user/user.service'
+import { RestService } from '../../rest'
 
 import * as _ from 'lodash'
 
@@ -12,21 +13,29 @@ import * as _ from 'lodash'
 })
 export class StepPawComponent {
   @Input() step: Step
+  stepResource
 
-  constructor(private user: UserService) {}
+  constructor(public user: UserService, private rest: RestService) {
+    this.stepResource = rest.createResource('/api/projectstep')
+  }
 
-  private isWorkedByMe(): boolean {
+  isWorkedByMe(): boolean {
     if (!this.step.workedOnBy) return false
     let user = _.find(this.step.workedOnBy, (user) => { return user._id === this.user.getUser()._id })
     if (!user) return false
     return true
   }
 
-  private removeMarkStepAsWorked() {
-    console.log("removeMarkStepAsWorked")
+  markStepAsWorked() {
+    if (!this.step.workedOnBy) this.step.workedOnBy = []
+    this.step.workedOnBy.push(this.user.getUser())
+    this.stepResource.put(this.step._id, {workedOnBy: this.step.workedOnBy}).subscribe()
   }
 
-  private markStepAsWorked() {
-    console.log("markStepAsWorked")
+  removeMarkStepAsWorked()  {
+    if (this.isWorkedByMe()) {
+      _.remove(this.step.workedOnBy, (user) => { return user._id === this.user.getUser()._id })
+      this.stepResource.put(this.step._id, {workedOnBy: this.step.workedOnBy}).subscribe()
+    }
   }
 }

@@ -13,10 +13,10 @@ import * as _ from 'lodash'
   templateUrl: './sidenav-content.component.html'
 })
 export class SidenavContentComponent {
-  private mainMenuList: MenuEntry[] = []
-  private accountMenuList: MenuEntry[] = []
+  mainMenuList: MenuEntry[] = []
+  accountMenuList: MenuEntry[] = []
 
-  constructor(private http: HttpClient, private user: UserService) {
+  constructor(private http: HttpClient, public user: UserService) {
     this.queryMainMenu()
     this.queryAccountMenu()
 

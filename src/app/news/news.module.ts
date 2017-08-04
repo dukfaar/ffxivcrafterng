@@ -6,6 +6,7 @@ import { MaterialModule } from '../material/material.module'
 import { NewsCardComponent } from './news-card/news-card.component'
 import { BaseModule } from '../base/base.module'
 import { SocketModule } from '../socket/socket.module'
+import { RestModule } from '../rest'
 
 import { RouterModule, Routes } from '@angular/router'
 
@@ -23,6 +24,7 @@ const moduleRoutes: Routes = [
     FormsModule,
     BaseModule,
     RouterModule.forChild(moduleRoutes),
+    RestModule,
     SocketModule,
   ],
   exports: [

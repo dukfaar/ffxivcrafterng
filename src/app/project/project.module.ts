@@ -14,6 +14,7 @@ import { CraftscatCornerComponent } from './craftscat-corner/craftscat-corner.co
 import { CraftableStepComponent } from './craftscat-corner/craftable-step.component'
 import { GatherableStepComponent } from './craftscat-corner/gatherable-step.component'
 import { StepPawComponent } from './craftscat-corner/step-paw.component'
+import { RestModule } from '../rest/rest.module'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { StepPawComponent } from './craftscat-corner/step-paw.component'
     CommonModule,
     SocketModule,
     BaseModule,
-    ItemModule
+    ItemModule,
+    RestModule
   ],
   providers: [
     PublicProjectService,

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core'
 
-import { HttpClient } from '@angular/common/http'
-
 import { SocketService } from '../../socket/socket.service'
+
+import { RestResource, RestService } from '../../rest'
 
 interface ApplicationSettingResponseEntry {
   _id: string
@@ -15,10 +15,11 @@ interface ApplicationSettingResponseEntry {
   templateUrl: './news-card.component.html'
 })
 export class NewsCardComponent {
-  private newsTextQuery = this.http.get<ApplicationSettingResponseEntry[]>('/api/rest/applicationsetting?name=newsText')
+  private applicationSettingsResource: RestResource<ApplicationSettingResponseEntry>
   newsText: string = 'Loading...'
 
-  constructor(private http: HttpClient, private socket: SocketService) {
+  constructor(private socket: SocketService, private rest: RestService) {
+    this.applicationSettingsResource = this.rest.createResource('/api/rest/applicationsetting')
     this.fetchNewsText()
   }
 
@@ -31,7 +32,7 @@ export class NewsCardComponent {
   }
 
   private fetchNewsText(): void {
-    this.newsTextQuery.subscribe(response => {
+    this.applicationSettingsResource.query({name: 'newsText'}).subscribe(response => {
       this.newsText = response[0].text
     })
   }

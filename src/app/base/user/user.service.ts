@@ -6,6 +6,8 @@ import { Subject, Observable } from 'rxjs'
 
 import { UserTokenService } from './user-token.service'
 
+import { Restangular } from 'ngx-restangular'
+
 import * as _ from 'lodash'
 
 interface LoginResponse {
@@ -26,7 +28,7 @@ export class UserService {
 
   onLoginStatusChanged = this._onLoginStatusChanged.asObservable()
 
-  constructor(private http: HttpClient, private userToken: UserTokenService) {
+  constructor(private http: HttpClient, private userToken: UserTokenService, private restangular: Restangular) {
     if(this.userToken.get()) {
       this.http.get<LoginResponse>('/api/users/me')
       .flatMap(response => {
@@ -40,6 +42,7 @@ export class UserService {
 
   private evalLoginResponse(response: LoginResponse) {
     this.userToken.set(response.token)
+    this.restangular.provider.setDefaultHeaders({'Authorization': this.userToken.getAuthorizationHeader()})
 
     this.parseToken()
 
@@ -78,6 +81,7 @@ export class UserService {
     this.http.get('/api/logout')
     .subscribe(response => {
       this.userToken.reset()
+      this.restangular.provider.setDefaultHeaders({'Authorization': ''})
 
       this.circles = []
       this.user = null

@@ -8,9 +8,9 @@ import { UserService } from '../../base/user/user.service'
   templateUrl: 'craftscat-corner.component.html'
 })
 export class CraftscatCornerComponent {
-  private filterText: string
+  filterText: string
 
-  constructor(private publicProjectService: PublicProjectService, private user: UserService) {
+  constructor(public publicProjectService: PublicProjectService, public user: UserService) {
 
   }
 }

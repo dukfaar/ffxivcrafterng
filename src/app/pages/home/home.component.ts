@@ -6,5 +6,5 @@ import { UserService } from '../../base/user/user.service'
   templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  constructor(private user: UserService) {}
+  constructor(public user: UserService) {}
 }

@@ -9,8 +9,8 @@ import { UserService } from '../user.service'
 export class LoginFormComponent {
   email: string
   password: string
-  
-  constructor(private user: UserService) {
+
+  constructor(public user: UserService) {
 
   }
 }
