@@ -27,7 +27,7 @@ export class UserService {
   onLoginStatusChanged = this._onLoginStatusChanged.asObservable()
 
   constructor(private http: HttpClient, private userToken: UserTokenService) {
-    if(this.userToken.get()) {
+    if(this.userToken.tokenIsSet()) {
       this.http.get<LoginResponse>('/api/users/me')
       .flatMap(response => {
         return this.evalLoginResponse(response)
@@ -39,7 +39,9 @@ export class UserService {
   }
 
   private evalLoginResponse(response: LoginResponse) {
-    this.userToken.set(response.token)
+    if(response.token) {
+      this.userToken.set(response.token)
+    }
 
     this.parseToken()
 
@@ -53,7 +55,7 @@ export class UserService {
   }
 
   loggedIn(): boolean {
-    return this.userToken.get() != null
+    return this.userToken.tokenIsSet()
   }
 
   parseToken() {

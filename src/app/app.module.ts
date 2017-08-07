@@ -12,6 +12,7 @@ import { PagesModule } from './pages/pages.module'
 import { MaterialModule } from './material/material.module'
 import { SocketModule } from './socket/socket.module'
 import { ProjectModule } from './project/project.module'
+import { BotModule } from './bot/bot.module'
 
 import { WildcardRoutingModule } from './wildcard-routing/wildcard-routing.module'
 
@@ -33,6 +34,7 @@ import { RouterModule, Routes } from '@angular/router'
     PagesModule,
     MaterialModule,
     ProjectModule,
+    BotModule,
     RouterModule.forRoot([]),
 
     WildcardRoutingModule //this MUST be last to work properly

@@ -1,0 +1,11 @@
+.managerContainer > div {
+  padding: .9em;
+}
+
+.managerContainer {
+  padding: .5em;
+}
+
+.managerContainer md-input-container {
+  padding: .5em;
+}

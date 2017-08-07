@@ -14,11 +14,15 @@ export class UserTokenService {
   }
 
   reset() {
-    this.token = null
+    this.token = undefined
     localStorage.removeItem('auth-token')
   }
 
   get(): string {
     return this.token
+  }
+
+  tokenIsSet(): boolean {
+    return this.token != null && this.token != undefined && this.token !== 'undefined' && this.token !== 'null'
   }
 }

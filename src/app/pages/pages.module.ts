@@ -13,9 +13,9 @@ import { ProjectModule } from '../project/project.module'
 import { RouterModule, Routes } from '@angular/router'
 
 const moduleRoutes: Routes = [
-  { path: '', component: HomeComponent }, //Home Path
-  { path: 'home', component: HomeComponent }, //Home Path
-  { path: 'auth/login', component: LoginComponent }, //Home Path
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'auth/login', component: LoginComponent },
 ]
 
 @NgModule({
@@ -31,7 +31,8 @@ const moduleRoutes: Routes = [
     BaseModule,
     NewsModule,
     ProjectModule,
-    RouterModule.forChild(moduleRoutes),
+
+    RouterModule.forChild(moduleRoutes)
   ],
   exports: [
   ],
