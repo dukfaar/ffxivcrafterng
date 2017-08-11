@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 
+import { BehaviorSubject } from 'rxjs'
+
 import { SocketService } from '../socket/socket.service'
 import { UserService } from '../base/user/user.service'
 import { ProjectAnalysisService } from './project-analysis.service'
@@ -14,9 +16,7 @@ import * as _ from 'lodash'
 export class PublicProjectService {
   private unfilteredProjectList: Project[] = []
   private filteredProjectList: Project[] = []
-  private analysedProjectList: ProjectAnalysisData[] = []
-
-  public analysedProjectsChanged: EventEmitter<ProjectAnalysisData[]> = new EventEmitter<ProjectAnalysisData[]>()
+  public analysedProjectList: BehaviorSubject<ProjectAnalysisData[]> = new BehaviorSubject([])
 
   constructor(
     private socket: SocketService,
@@ -32,9 +32,7 @@ export class PublicProjectService {
     .subscribe(response => {
       this.unfilteredProjectList = response
       this.filteredProjectList = _.reject(this.unfilteredProjectList, (project: Project) => _.includes(project.hiddenOnOverviewBy, this.user.getUser()._id))
-      this.analysedProjectList = _.map(this.filteredProjectList, p => this.analysisService.analyseProject(p))
-
-      this.analysedProjectsChanged.emit(this.analysedProjectList)
+      this.analysedProjectList.next(_.map(this.filteredProjectList, p => this.analysisService.analyseProject(p)))
     })
   }
 }

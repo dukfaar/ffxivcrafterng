@@ -32,8 +32,12 @@ export class CraftscatCornerComponent {
   }
 
   constructor(public publicProjectService: PublicProjectService, public user: UserService) {
-    publicProjectService.analysedProjectsChanged.subscribe(analysedProjectList => {
+    this.publicProjectService.analysedProjectList.subscribe(analysedProjectList => {
       this.filterProjects(analysedProjectList)
     })
+  }
+
+  ngOnInit() {
+
   }
 }
