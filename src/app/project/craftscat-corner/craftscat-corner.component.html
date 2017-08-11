@@ -3,28 +3,28 @@
     <span>Craftscat Corner</span>
     <span fxFlex></span>
     <md-input-container>
-      <input mdInput type="text" placeholder="Filter" [(ngModel)]="filterText"/>
+      <input mdInput type="text" placeholder="Filter" [(ngModel)]="filterText" (ngModelChange)="filterProjects(publicProjectService.analysedProjectList)"/>
     </md-input-container>
   </md-toolbar>
   <md-card>
     <md-card-content>
       <ng-container *ngIf="user.allowed('see public craft tasks')">
-        <div *ngFor="let analysedProject of publicProjectService.analysedProjectList" fxLayout="column">
+        <div *ngFor="let analysedProject of analysedFilteredProjectList" fxLayout="column">
           <ng-container *ngIf="analysedProject.craftableStepsList.length > 0">
             <div>
               {{analysedProject.project.name}}
             </div>
-            <craftable-step [step]="craftableStep" *ngFor="let craftableStep of analysedProject.craftableStepsList"></craftable-step>
+            <craftable-step [step]="craftableStep" *ngFor="let craftableStep of analysedProject.filteredCraftableStepsList"></craftable-step>
           </ng-container>
         </div>
       </ng-container>
       <ng-container *ngIf="user.allowed('see public gather tasks')">
-        <div *ngFor="let analysedProject of publicProjectService.analysedProjectList" fxLayout="column">
+        <div *ngFor="let analysedProject of analysedFilteredProjectList" fxLayout="column">
           <div *ngIf="analysedProject.gatherListArray.length > 0" fxLayout="column">
             <div>
               {{analysedProject.project.name}}
             </div>
-            <gatherable-step [step]="gatherStep" *ngFor="let gatherStep of analysedProject.gatherListArray"></gatherable-step>
+            <gatherable-step [step]="gatherStep" *ngFor="let gatherStep of analysedProject.filteredGatherListArray"></gatherable-step>
           </div>
         </div>
       </ng-container>

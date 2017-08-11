@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import { Injectable, EventEmitter } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 
 import { SocketService } from '../socket/socket.service'
@@ -16,6 +16,8 @@ export class PublicProjectService {
   private filteredProjectList: Project[] = []
   private analysedProjectList: ProjectAnalysisData[] = []
 
+  public analysedProjectsChanged: EventEmitter<ProjectAnalysisData[]> = new EventEmitter<ProjectAnalysisData[]>()
+
   constructor(
     private socket: SocketService,
     private http: HttpClient,
@@ -31,6 +33,8 @@ export class PublicProjectService {
       this.unfilteredProjectList = response
       this.filteredProjectList = _.reject(this.unfilteredProjectList, (project: Project) => _.includes(project.hiddenOnOverviewBy, this.user.getUser()._id))
       this.analysedProjectList = _.map(this.filteredProjectList, p => this.analysisService.analyseProject(p))
+
+      this.analysedProjectsChanged.emit(this.analysedProjectList)
     })
   }
 }
