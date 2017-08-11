@@ -53,6 +53,13 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {}
+    "component": {},
+    "serve": {
+      "host": "0.0.0.0",
+      "port": "4200",
+      "ssl": true,
+      "sslCert": "/etc/letsencrypt/live/dukfaar.com/cert.pem",
+      "sslKey": "/etc/letsencrypt/live/dukfaar.com/privkey.pem"
+    }
   }
 }
