@@ -1,25 +1,27 @@
 <div fxLayout="row" fxLayoutWrap class="managerContainer">
-  <div fxFlex="50%" *ngFor="let reaction of reactions">
+  <div fxFlex="50%" *ngFor="let reaction of reactions;trackBy:trackBy">
     <md-card>
       <md-card-content fxLayout="row" fxLayoutWrap>
         <md-input-container fxFlex="33.3%">
-          <input mdInput type="text" placeholder="Trigger" [(ngModel)]="reaction.trigger"/>
+          <input mdInput type="text" placeholder="Trigger" [(ngModel)]="reaction.trigger" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
         <md-input-container fxFlex="33.3%">
-          <input mdInput type="number" placeholder="Probability" [(ngModel)]="reaction.probability"/>
+          <input mdInput type="number" placeholder="Probability" [(ngModel)]="reaction.probability" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
         <md-input-container fxFlex="33.3%">
-          <input mdInput type="number" placeholder="Cooldown" [(ngModel)]="reaction.cooldown"/>
+          <input mdInput type="number" placeholder="Cooldown" [(ngModel)]="reaction.cooldown" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
         <md-input-container fxFlex="100%">
-          <input mdInput type="text" placeholder="Reaction" [(ngModel)]="reaction.reaction"/>
+          <input mdInput type="text" placeholder="Reaction" [(ngModel)]="reaction.reaction" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
       </md-card-content>
-      <button md-mini-fab style="position:absolute; top:-1em; right:.5em;"><md-icon>delete</md-icon></button>
+      <button md-mini-fab style="position:absolute; top:-1em; right:.5em;" (click)="deleteReaction(reaction)">
+        <md-icon>delete</md-icon>
+      </button>
     </md-card>
   </div>
 </div>
 
-<button md-fab style="position:absolute; bottom:1em; right:1em;">
+<button md-fab style="position:absolute; bottom:1em; right:1em;" (click)="addReaction()">
   <md-icon>add</md-icon>
 </button>
