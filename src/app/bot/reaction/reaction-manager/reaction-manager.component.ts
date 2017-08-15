@@ -4,8 +4,7 @@ import { RestService, RestResource } from '../../../rest'
 import { SocketService } from '../../../socket/socket.service'
 import { Reaction } from '../reaction.type'
 
-import 'rxjs/add/operator/debounceTime'
-import 'rxjs/add/operator/distinctUntilChanged'
+import { Debounce, DebounceForId } from '../../../debounce'
 
 @Component({
   selector: 'app-reaction-manager',
@@ -18,13 +17,13 @@ export class ReactionManagerComponent implements OnInit {
 
   constructor(private rest: RestService, private socket: SocketService) {
     this.reactionResource = rest.createResource('/api/rest/botreaction')
-
-    this.fetchReactions()
   }
 
   trackBy(index, reaction) { return reaction._id }
 
   ngOnInit() {
+    this.fetchReactions()
+
     this.socket.on('BotReaction created', () => this.fetchReactions())
     this.socket.on('BotReaction deleted', () => this.fetchReactions())
     this.socket.on('BotReaction updated', () => this.fetchReactions())
@@ -34,6 +33,7 @@ export class ReactionManagerComponent implements OnInit {
     this.reactionResource.post({}).subscribe(() => {})
   }
 
+  @DebounceForId(300)
   updateReaction(reaction: Reaction) {
     this.reactionResource.update(reaction._id, reaction).subscribe(() => {})
   }
@@ -44,6 +44,7 @@ export class ReactionManagerComponent implements OnInit {
 
   reactionQuery = undefined
 
+  @Debounce(300)
   fetchReactions() {
     if(!this.reactionQuery) this.reactionQuery = this.reactionResource.query({})
 
