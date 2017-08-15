@@ -7,20 +7,24 @@ import { RestResource } from './rest-resource.type'
 
 import * as _ from 'lodash'
 
+import { CountResponse } from './count-response.type'
+
 @Injectable()
 export class RestService {
   constructor(private http: HttpClient) {}
+
+  private getQueryString(query: any): string {
+    let paramString: string = _.join(_.map(query, (value, key) => key + '=' + value), '&')
+
+    return (paramString.length > 0) ? ('?' + paramString) : ''
+  }
 
   createResource<T>(resourceName: string): RestResource<T> {
     return new RestResource<T>(resourceName, this)
   }
 
   query<T>(resourceName: string, query: any): Observable<T> {
-    let paramString: string = _.join(_.map(query, (value, key) => key + '=' + value), '&')
-    let url = resourceName
-    if(paramString.length > 0) url += '?' + paramString
-
-    return this.http.get<T>(url)
+    return this.http.get<T>(resourceName + this.getQueryString(query))
   }
 
   get<T>(resourceName: string, id: string | number): Observable<T> {
@@ -37,5 +41,9 @@ export class RestService {
 
   delete<T>(resourceName: string, id: string | number): Observable<T> {
     return this.http.delete<T>(resourceName + '/' + id)
+  }
+
+  count(resourceName: string, query: any): Observable<CountResponse> {
+    return this.http.get<CountResponse>(resourceName + '/count' + this.getQueryString(query))
   }
 }

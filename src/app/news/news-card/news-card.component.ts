@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-import { SocketService } from '../../socket/socket.service'
+import { SocketService, SocketComponent } from '../../socket'
 
 import { RestResource, RestService } from '../../rest'
 
@@ -14,30 +14,23 @@ interface ApplicationSettingResponseEntry {
   selector: 'news-card',
   templateUrl: './news-card.component.html'
 })
-export class NewsCardComponent {
+export class NewsCardComponent extends SocketComponent {
   private applicationSettingsResource: RestResource<ApplicationSettingResponseEntry>
   newsText: string = 'Loading...'
 
-  constructor(private socket: SocketService, private rest: RestService) {
+  constructor(socket: SocketService, private rest: RestService) {
+    super(socket)
     this.applicationSettingsResource = this.rest.createResource('/api/rest/applicationsetting')
     this.fetchNewsText()
   }
 
   ngOnInit(): void {
-    this.socket.on('ApplicationSetting updated', this.checkApplicationSettingChange)
-  }
-
-  ngOnDestroy(): void {
-    this.socket.off('ApplicationSetting updated', this.checkApplicationSettingChange)
+    this.onSocket('ApplicationSetting updated', (change: ApplicationSettingResponseEntry) => { if(change.name === 'newsText') this.newsText = change.text })
   }
 
   private fetchNewsText(): void {
     this.applicationSettingsResource.query({name: 'newsText'}).subscribe(response => {
       this.newsText = response[0].text
     })
-  }
-
-  private checkApplicationSettingChange = (change: ApplicationSettingResponseEntry) => {
-    if(change.name === 'newsText') this.newsText = change.text
   }
 }

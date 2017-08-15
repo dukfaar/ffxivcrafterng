@@ -1,0 +1,16 @@
+<div>
+  <md-grid-list cols="8" gutterSize="4px" rowHeight="1:1">
+    <md-grid-tile *ngFor="let image of images">
+      <img draggable="false" src="{{getUrl(image)}}"  />        
+    </md-grid-tile>
+  </md-grid-list>
+
+  <md-paginator
+    [pageIndex]="currentPage"
+    [length]="length"
+    [pageSize]="pageSize"
+    (page)="currentPage = $event.pageIndex; fetchPageData();"
+  >
+  </md-paginator>
+
+</div>
