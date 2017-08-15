@@ -35,7 +35,7 @@ export class ReactionManagerComponent implements OnInit {
   }
 
   updateReaction(reaction: Reaction) {
-    this.reactionResource.update(reaction._id, reaction).subscribe(() => { console.log('meow') })
+    this.reactionResource.update(reaction._id, reaction).subscribe(() => {})
   }
 
   deleteReaction(reaction: Reaction) {
