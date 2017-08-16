@@ -2,13 +2,16 @@
   <div fxFlex="50%" *ngFor="let reaction of reactions;trackBy:trackBy">
     <md-card>
       <md-card-content fxLayout="row" fxLayoutWrap>
-        <md-input-container fxFlex="33.3%">
+        <md-input-container fxFlex="25%" fxLayout="row">
+          <input mdInput type="datetime" placeholder="Last Said" [(ngModel)]="reaction.lastReaction" (ngModelChange)="updateReaction(reaction)"/>
+        </md-input-container>
+        <md-input-container fxFlex="25%">
           <input mdInput type="text" placeholder="Trigger" [(ngModel)]="reaction.trigger" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
-        <md-input-container fxFlex="33.3%">
+        <md-input-container fxFlex="25%">
           <input mdInput type="number" placeholder="Probability" [(ngModel)]="reaction.probability" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
-        <md-input-container fxFlex="33.3%">
+        <md-input-container fxFlex="25%">
           <input mdInput type="number" placeholder="Cooldown" [(ngModel)]="reaction.cooldown" (ngModelChange)="updateReaction(reaction)"/>
         </md-input-container>
         <md-input-container fxFlex="100%">

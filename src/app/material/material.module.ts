@@ -12,7 +12,9 @@ import {
   MdIconModule,
   MdGridListModule,
   MdInputModule,
-  MdPaginatorModule
+  MdPaginatorModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 } from '@angular/material'
 
 const modulesToExport = [
@@ -26,7 +28,9 @@ const modulesToExport = [
   FlexLayoutModule,
   MdToolbarModule,
   MdInputModule,
-  MdPaginatorModule
+  MdPaginatorModule,
+  MdDatepickerModule,
+  MdNativeDateModule
 ]
 
 @NgModule({

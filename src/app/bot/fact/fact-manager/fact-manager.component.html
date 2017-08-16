@@ -2,14 +2,14 @@
   <div fxFlex="50%" *ngFor="let fact of facts;trackBy:trackBy">
     <md-card>
       <md-card-content fxLayout="row" fxLayoutWrap>
-        <md-input-container fxFlex="33.3%">
-          <input mdInput type="number" placeholder="Probability" [(ngModel)]="fact.text" (ngModelChange)="updateFact(fact)"/>
+        <md-input-container fxFlex="50%">
+          <input mdInput type="datetime" placeholder="Last Said" [(ngModel)]="fact.lastSaid" (ngModelChange)="updateFact(fact)"/>
         </md-input-container>
-        <md-input-container fxFlex="33.3%">
+        <md-input-container fxFlex="50%">
           <input mdInput type="number" placeholder="Cooldown" [(ngModel)]="fact.cooldown" (ngModelChange)="updateFact(fact)"/>
         </md-input-container>
         <md-input-container fxFlex="100%">
-          <input mdInput type="text" placeholder="Reaction" [(ngModel)]="fact.reaction" (ngModelChange)="updateFact(fact)"/>
+          <input mdInput type="text" placeholder="Fact" [(ngModel)]="fact.fact" (ngModelChange)="updateFact(fact)"/>
         </md-input-container>
       </md-card-content>
       <button md-mini-fab style="position:absolute; top:-1em; right:.5em;" (click)="deleteFact(fact)">

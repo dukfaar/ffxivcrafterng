@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 import { RestService, RestResource } from '../../../rest'
-import { SocketService } from '../../../socket/socket.service'
+import { SocketService, SocketComponent } from '../../../socket'
 import { Reaction } from '../reaction.type'
 
 import { Debounce, DebounceForId } from '../../../debounce'
@@ -11,11 +11,12 @@ import { Debounce, DebounceForId } from '../../../debounce'
   templateUrl: './reaction-manager.component.html',
   styleUrls: ['./reaction-manager.component.css']
 })
-export class ReactionManagerComponent implements OnInit {
+export class ReactionManagerComponent extends SocketComponent implements OnInit {
   private reactionResource: RestResource<Reaction>
   private reactions: Reaction[] = []
 
-  constructor(private rest: RestService, private socket: SocketService) {
+  constructor(private rest: RestService, socket: SocketService) {
+    super(socket)
     this.reactionResource = rest.createResource('/api/rest/botreaction')
   }
 
@@ -24,9 +25,9 @@ export class ReactionManagerComponent implements OnInit {
   ngOnInit() {
     this.fetchReactions()
 
-    this.socket.on('BotReaction created', () => this.fetchReactions())
-    this.socket.on('BotReaction deleted', () => this.fetchReactions())
-    this.socket.on('BotReaction updated', () => this.fetchReactions())
+    this.onSocket('BotReaction created', () => this.debouncedFetchReactions())
+    this.onSocket('BotReaction deleted', () => this.debouncedFetchReactions())
+    this.onSocket('BotReaction updated', () => this.debouncedFetchReactions())
   }
 
   addReaction() {
@@ -42,9 +43,10 @@ export class ReactionManagerComponent implements OnInit {
     this.reactionResource.delete(reaction._id).subscribe(() => {})
   }
 
+  @Debounce(300) debouncedFetchReactions() { this.fetchReactions() }
+
   reactionQuery = undefined
 
-  @Debounce(300)
   fetchReactions() {
     if(!this.reactionQuery) this.reactionQuery = this.reactionResource.query({})
 

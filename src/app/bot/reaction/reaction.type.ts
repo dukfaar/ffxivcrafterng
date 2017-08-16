@@ -4,4 +4,5 @@ export class Reaction {
   reaction: string
   trigger: string
   probability: number
+  lastReaction: Date
 }

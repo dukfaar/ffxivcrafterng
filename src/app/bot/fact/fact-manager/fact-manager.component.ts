@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 import { RestService, RestResource } from '../../../rest'
-import { SocketService } from '../../../socket/socket.service'
+import { SocketService, SocketComponent } from '../../../socket'
 
 import { Fact } from '../fact.type'
+
+import { Debounce, DebounceForId } from '../../../debounce'
 
 @Component({
   selector: 'app-fact-manager',
   templateUrl: './fact-manager.component.html',
   styleUrls: ['./fact-manager.component.css']
 })
-export class FactManagerComponent implements OnInit {
+export class FactManagerComponent extends SocketComponent implements OnInit {
   private factResource: RestResource<Fact>
   private facts: Fact[] = []
 
-  constructor(private rest: RestService, private socket: SocketService) {
+  constructor(private rest: RestService, socket: SocketService) {
+    super(socket)
     this.factResource = rest.createResource('/api/rest/uselessfact')
 
     this.fetchFacts()
@@ -26,6 +29,7 @@ export class FactManagerComponent implements OnInit {
     this.factResource.post({}).subscribe(() => {})
   }
 
+  @DebounceForId(300)
   updateFact(fact: Fact) {
     this.factResource.update(fact._id, fact).subscribe(() => {})
   }
@@ -35,14 +39,12 @@ export class FactManagerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.socket.on('UselessFact created', () => this.fetchFacts())
-    this.socket.on('UselessFact deleted', () => this.fetchFacts())
-    this.socket.on('UselessFact updated', () => this.fetchFacts())
+    this.onSocket('UselessFact created', () => this.debouncedFetchFacts())
+    this.onSocket('UselessFact deleted', () => this.debouncedFetchFacts())
+    this.onSocket('UselessFact updated', () => this.debouncedFetchFacts())
   }
 
-  ngOnDestroy() {
-
-  }
+  @Debounce(300) debouncedFetchFacts() { this.fetchFacts() }
 
   fetchFacts() {
     this.factResource.query({}).subscribe(facts => {
