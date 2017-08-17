@@ -1,6 +1,8 @@
 import { Component } from '@angular/core'
 
-import { PublicProjectService } from '../public-projects.service'
+import { Observable } from 'rxjs'
+
+import { AnalysedFilteredPublicProjectsService } from '../analysed-filtered-public-projects.service'
 import { UserService } from '../../base/user/user.service'
 import { ProjectAnalysisData } from '../project-analysis-data.type'
 
@@ -13,10 +15,10 @@ import * as _ from 'lodash'
 export class CraftscatCornerComponent {
   filterText: string = ''
 
-  public analysedFilteredProjectList: ProjectAnalysisData[]
+  public analysedFilteredProjectList: Observable<ProjectAnalysisData[]>
 
-  filterProjects(analysedProjectList): void {
-    this.analysedFilteredProjectList = _.map(analysedProjectList, (analysedProject:ProjectAnalysisData) => {
+  filterProjects(analysedProjectList): ProjectAnalysisData[] {
+    return _.map(analysedProjectList, (analysedProject:ProjectAnalysisData) => {
       let filterRegex = new RegExp(this.filterText, 'i')
 
       analysedProject.filteredGatherListArray = _.filter(analysedProject.gatherListArray, g => {
@@ -31,13 +33,10 @@ export class CraftscatCornerComponent {
     }) as ProjectAnalysisData[]
   }
 
-  constructor(public publicProjectService: PublicProjectService, public user: UserService) {
-    this.publicProjectService.analysedProjectList.subscribe(analysedProjectList => {
-      this.filterProjects(analysedProjectList)
-    })
+  constructor(public projectsService: AnalysedFilteredPublicProjectsService, public user: UserService) {
   }
 
   ngOnInit() {
-
+    this.analysedFilteredProjectList = this.projectsService.list.map(analysedProjectList => this.filterProjects(analysedProjectList))
   }
 }

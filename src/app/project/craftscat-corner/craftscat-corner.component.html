@@ -9,7 +9,7 @@
   <md-card>
     <md-card-content>
       <ng-container *ngIf="user.allowed('see public craft tasks')">
-        <div *ngFor="let analysedProject of analysedFilteredProjectList" fxLayout="column">
+        <div *ngFor="let analysedProject of analysedFilteredProjectList | async" fxLayout="column">
           <ng-container *ngIf="analysedProject.craftableStepsList.length > 0">
             <div>
               {{analysedProject.project.name}}
@@ -19,7 +19,7 @@
         </div>
       </ng-container>
       <ng-container *ngIf="user.allowed('see public gather tasks')">
-        <div *ngFor="let analysedProject of analysedFilteredProjectList" fxLayout="column">
+        <div *ngFor="let analysedProject of analysedFilteredProjectList | async" fxLayout="column">
           <div *ngIf="analysedProject.gatherListArray.length > 0" fxLayout="column">
             <div>
               {{analysedProject.project.name}}

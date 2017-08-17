@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common'
 import { MaterialModule } from '../material/material.module'
 
 import { PublicProjectService } from './public-projects.service'
+import { FilteredPublicProjectsService } from './filtered-public-projects.service'
+import { AnalysedFilteredPublicProjectsService } from './analysed-filtered-public-projects.service'
+
 import { SocketModule } from '../socket/socket.module'
 import { BaseModule } from '../base/base.module'
 import { ItemModule } from '../item/item.module'
@@ -35,7 +38,9 @@ import { RestModule } from '../rest'
   ],
   providers: [
     PublicProjectService,
-    ProjectAnalysisService
+    ProjectAnalysisService,
+    FilteredPublicProjectsService,
+    AnalysedFilteredPublicProjectsService
   ],
   exports: [
     CraftscatCornerComponent,

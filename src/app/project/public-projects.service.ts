@@ -4,35 +4,32 @@ import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject } from 'rxjs'
 
 import { SocketService } from '../socket/socket.service'
-import { UserService } from '../base/user/user.service'
-import { ProjectAnalysisService } from './project-analysis.service'
-import { ProjectAnalysisData } from './project-analysis-data.type'
 
 import { Project } from './project.type'
 
-import * as _ from 'lodash'
+import { Debounce } from '../debounce'
 
 @Injectable()
 export class PublicProjectService {
-  private unfilteredProjectList: Project[] = []
-  private filteredProjectList: Project[] = []
-  public analysedProjectList: BehaviorSubject<ProjectAnalysisData[]> = new BehaviorSubject([])
+  public list: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([])
 
   constructor(
     private socket: SocketService,
-    private http: HttpClient,
-    private user: UserService,
-    private analysisService: ProjectAnalysisService
+    private http: HttpClient
   ) {
     this.fetchPublicProjects()
+
+    this.socket.on('CraftingProject created', () => this.debouncedFetchPublicProjects())
+    this.socket.on('CraftingProject updated', () => this.debouncedFetchPublicProjects())
+    this.socket.on('CraftingProject deleted', () => this.debouncedFetchPublicProjects())
   }
+
+  @Debounce(300) debouncedFetchPublicProjects() { this.fetchPublicProjects() }
 
   fetchPublicProjects() {
     this.http.get<Project[]>('/api/project/public')
     .subscribe(response => {
-      this.unfilteredProjectList = response
-      this.filteredProjectList = _.reject(this.unfilteredProjectList, (project: Project) => _.includes(project.hiddenOnOverviewBy, this.user.getUser()._id))
-      this.analysedProjectList.next(_.map(this.filteredProjectList, p => this.analysisService.analyseProject(p)))
+      this.list.next(response)
     })
   }
 }
