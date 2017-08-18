@@ -14,7 +14,11 @@ export class AnalysedFilteredPublicProjectsService {
   public list: BehaviorSubject<ProjectAnalysisData[]> = new BehaviorSubject<ProjectAnalysisData[]>([])
 
   constructor(private analysisService: ProjectAnalysisService, private filteredProjects: FilteredPublicProjectsService) {
-    this.filteredProjects.list.subscribe(projects => {
+    this.filteredProjects.list
+    .distinctUntilChanged((oldValue, newValue) => {
+      return _.isEqual(oldValue, newValue)
+    })
+    .subscribe(projects => {
       this.list.next(_.map(projects, p => this.analysisService.analyseProject(p)))
     })
   }

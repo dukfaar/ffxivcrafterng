@@ -19,9 +19,11 @@ export class PublicProjectService {
   ) {
     this.fetchPublicProjects()
 
-    this.socket.on('CraftingProject created', () => this.debouncedFetchPublicProjects())
-    this.socket.on('CraftingProject updated', () => this.debouncedFetchPublicProjects())
-    this.socket.on('CraftingProject deleted', () => this.debouncedFetchPublicProjects())
+    this.socket.on('project stock changed', () => this.debouncedFetchPublicProjects())
+    this.socket.on('project step data changed', () => this.debouncedFetchPublicProjects())
+    this.socket.on('project data changed', () => this.debouncedFetchPublicProjects())
+    this.socket.on('new project created', () => this.debouncedFetchPublicProjects())
+    this.socket.on('project deleted', () => this.debouncedFetchPublicProjects())
   }
 
   @Debounce(300) debouncedFetchPublicProjects() { this.fetchPublicProjects() }

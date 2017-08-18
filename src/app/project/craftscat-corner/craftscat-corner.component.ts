@@ -37,6 +37,10 @@ export class CraftscatCornerComponent {
   }
 
   ngOnInit() {
-    this.analysedFilteredProjectList = this.projectsService.list.map(analysedProjectList => this.filterProjects(analysedProjectList))
+    this.analysedFilteredProjectList = this.projectsService.list
+    .distinctUntilChanged((oldValue, newValue) => {
+      return _.isEqual(oldValue, newValue)
+    })
+    .map(analysedProjectList => this.filterProjects(analysedProjectList))
   }
 }
