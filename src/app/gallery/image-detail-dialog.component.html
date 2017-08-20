@@ -1,0 +1,9 @@
+<md-dialog-content>
+  <img src="{{url}}" />
+
+  <div>
+    <div *ngFor="let comment of comments | async">
+      {{comment.text}}
+    </div>
+  </div>
+</md-dialog-content>

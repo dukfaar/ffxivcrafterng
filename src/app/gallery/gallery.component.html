@@ -1,7 +1,7 @@
 <div ng2FileDrop [uploader]="uploader" (fileOver)="fileOverEvent($event)">
   <md-grid-list cols="8" gutterSize="4px" rowHeight="1:1">
     <md-grid-tile *ngFor="let image of images">
-      <img draggable="false" src="{{getUrl(image)}}"  />
+      <img draggable="false" src="{{getUrl(image)}}"  (click)="openDetail(image)"/>
     </md-grid-tile>
   </md-grid-list>
 
@@ -12,6 +12,4 @@
     (page)="currentPage = $event.pageIndex; fetchPageData();"
   >
   </md-paginator>
-
-  <input type="file" class="form-control" name="single" ng2FileSelect [uploader]="uploader" />
 </div>

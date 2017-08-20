@@ -9,7 +9,10 @@ import { Debounce, DebounceForId } from '../debounce'
 
 import { FileUploader } from 'ng2-file-upload'
 
-import {  UserTokenService } from '../base/user/user-token.service'
+import { UserTokenService } from '../base/user/user-token.service'
+
+import { ImageDetailDialogComponent } from './image-detail-dialog.component'
+import { MdDialog } from '@angular/material'
 
 import * as _ from 'lodash'
 
@@ -28,7 +31,7 @@ export class GalleryComponent extends SocketComponent implements OnInit  {
 
   private uploader: FileUploader = new FileUploader({autoUpload: true, url: 'https://' + window.location.hostname + ':3001/api/image'})
 
-  constructor(private rest: RestService, socket: SocketService, private tokenService: UserTokenService) {
+  constructor(private rest: RestService, socket: SocketService, private tokenService: UserTokenService, public dialog: MdDialog) {
     super(socket)
     this.imageResource = this.rest.createResource<Image>('/api/image')
     this.fetchPageData()
@@ -61,8 +64,10 @@ export class GalleryComponent extends SocketComponent implements OnInit  {
   fileOverEvent(data: any) {
   }
 
-  triggerUpload() {
-
+  openDetail(image) {
+    this.dialog.open(ImageDetailDialogComponent, {
+      data: image
+    })
   }
 
   getUrl(image: Image): string {

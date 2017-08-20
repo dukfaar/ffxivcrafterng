@@ -8,6 +8,8 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { FileUploadModule } from 'ng2-file-upload'
 
+import { ImageDetailDialogComponent } from './image-detail-dialog.component'
+
 const moduleRoutes: Routes = [
   { path: 'gallery/index', component: GalleryComponent },
 ]
@@ -20,6 +22,7 @@ const moduleRoutes: Routes = [
 
     RouterModule.forChild(moduleRoutes)
   ],
-  declarations: [GalleryComponent]
+  entryComponents: [ImageDetailDialogComponent],
+  declarations: [GalleryComponent, ImageDetailDialogComponent]
 })
 export class GalleryModule { }
