@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ReactionManagerComponent } from './reaction-manager/reaction-manager.component';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { ReactionManagerComponent } from './reaction-manager/reaction-manager.component'
+import { ReactionComponent } from './reaction-manager/reaction.component'
 import { MaterialModule } from '../../material/material.module'
 import { FormsModule } from '@angular/forms'
 
@@ -15,9 +16,9 @@ const moduleRoutes: Routes = [
     CommonModule,
     MaterialModule,
     FormsModule,
-    
+
     RouterModule.forChild(moduleRoutes)
   ],
-  declarations: [ReactionManagerComponent]
+  declarations: [ReactionManagerComponent, ReactionComponent]
 })
 export class ReactionModule { }

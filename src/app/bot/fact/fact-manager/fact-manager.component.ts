@@ -5,7 +5,7 @@ import { SocketService, SocketComponent } from '../../../socket'
 
 import { Fact } from '../fact.type'
 
-import { Debounce, DebounceForId } from '../../../debounce'
+import { Debounce } from '../../../debounce'
 
 @Component({
   selector: 'app-fact-manager',
@@ -29,19 +29,9 @@ export class FactManagerComponent extends SocketComponent implements OnInit {
     this.factResource.post({}).subscribe(() => {})
   }
 
-  @DebounceForId(300)
-  updateFact(fact: Fact) {
-    this.factResource.update(fact._id, fact).subscribe(() => {})
-  }
-
-  deleteFact(fact: Fact) {
-    this.factResource.delete(fact._id).subscribe(() => {})
-  }
-
   ngOnInit() {
     this.onSocket('UselessFact created', () => this.debouncedFetchFacts())
     this.onSocket('UselessFact deleted', () => this.debouncedFetchFacts())
-    this.onSocket('UselessFact updated', () => this.debouncedFetchFacts())
   }
 
   @Debounce(300) debouncedFetchFacts() { this.fetchFacts() }

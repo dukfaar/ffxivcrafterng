@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FactManagerComponent } from './fact-manager/fact-manager.component';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { FactManagerComponent } from './fact-manager/fact-manager.component'
+import { FactManagerFactComponent } from './fact-manager/fact-manager-fact.component'
 import { MaterialModule } from '../../material/material.module'
 import { FormsModule } from '@angular/forms'
 
@@ -18,6 +19,6 @@ const moduleRoutes: Routes = [
 
     RouterModule.forChild(moduleRoutes)
   ],
-  declarations: [FactManagerComponent]
+  declarations: [FactManagerComponent, FactManagerFactComponent]
 })
 export class FactModule { }

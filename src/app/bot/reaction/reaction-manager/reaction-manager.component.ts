@@ -4,7 +4,7 @@ import { RestService, RestResource } from '../../../rest'
 import { SocketService, SocketComponent } from '../../../socket'
 import { Reaction } from '../reaction.type'
 
-import { Debounce, DebounceForId } from '../../../debounce'
+import { Debounce } from '../../../debounce'
 
 @Component({
   selector: 'app-reaction-manager',
@@ -27,16 +27,10 @@ export class ReactionManagerComponent extends SocketComponent implements OnInit 
 
     this.onSocket('BotReaction created', () => this.debouncedFetchReactions())
     this.onSocket('BotReaction deleted', () => this.debouncedFetchReactions())
-    this.onSocket('BotReaction updated', () => this.debouncedFetchReactions())
   }
 
   addReaction() {
     this.reactionResource.post({}).subscribe(() => {})
-  }
-
-  @DebounceForId(300)
-  updateReaction(reaction: Reaction) {
-    this.reactionResource.update(reaction._id, reaction).subscribe(() => {})
   }
 
   deleteReaction(reaction: Reaction) {
