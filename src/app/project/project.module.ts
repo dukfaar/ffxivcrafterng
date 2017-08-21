@@ -18,14 +18,27 @@ import { CraftableStepComponent } from './craftscat-corner/craftable-step.compon
 import { GatherableStepComponent } from './craftscat-corner/gatherable-step.component'
 import { StepPawComponent } from './craftscat-corner/step-paw.component'
 
+import { PrivateProjectOverviewComponent } from './private-project-overview.component'
+import { ProjectGridComponent } from './project-grid/project-grid.component'
+import { ProjectCardComponent } from './project-grid/project-card.component'
+
 import { RestModule } from '../rest'
+
+import { RouterModule, Routes } from '@angular/router'
+
+const moduleRoutes: Routes = [
+  { path: 'project/private', component: PrivateProjectOverviewComponent },
+]
 
 @NgModule({
   declarations: [
     CraftscatCornerComponent,
     CraftableStepComponent,
     GatherableStepComponent,
-    StepPawComponent
+    StepPawComponent,
+    PrivateProjectOverviewComponent,
+    ProjectGridComponent,
+    ProjectCardComponent
   ],
   imports: [
     MaterialModule,
@@ -34,7 +47,9 @@ import { RestModule } from '../rest'
     SocketModule,
     BaseModule,
     ItemModule,
-    RestModule
+    RestModule,
+
+    RouterModule.forChild(moduleRoutes)
   ],
   providers: [
     PublicProjectService,
@@ -46,7 +61,10 @@ import { RestModule } from '../rest'
     CraftscatCornerComponent,
     CraftableStepComponent,
     GatherableStepComponent,
-    StepPawComponent
+    StepPawComponent,
+    PrivateProjectOverviewComponent,
+    ProjectGridComponent,
+    ProjectCardComponent
   ]
 })
 export class ProjectModule {

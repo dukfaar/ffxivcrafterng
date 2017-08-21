@@ -28,6 +28,8 @@ export class UserService {
 
   constructor(private http: HttpClient, private userToken: UserTokenService) {
     if(this.userToken.tokenIsSet()) {
+      this.user = JSON.parse(localStorage.getItem('storedUser')) as UserModel
+
       this.http.get<LoginResponse>('/api/users/me')
       .flatMap(response => {
         return this.evalLoginResponse(response)
@@ -62,6 +64,7 @@ export class UserService {
     let base64Url = this.userToken.get().split('.')[1];
     let base64 = base64Url.replace('-', '+').replace('_', '/');
     this.user = JSON.parse(decodeURI(window.atob(base64)))
+    localStorage.setItem('storedUser', JSON.stringify(this.user))
   }
 
   login(email: string, password: string) {
@@ -83,6 +86,8 @@ export class UserService {
 
       this.circles = []
       this.user = null
+
+      localStorage.removeItem('storedUser')
 
       this._onLoginStatusChanged.next(this.loggedIn())
     })

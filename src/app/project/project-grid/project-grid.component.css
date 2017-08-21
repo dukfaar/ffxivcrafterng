@@ -1,0 +1,11 @@
+.gridContainer > div {
+  padding: .9em;
+}
+
+.gridContainer {
+  padding: .5em;
+}
+
+.gridContainer project-card {
+  padding: .5em;
+}
