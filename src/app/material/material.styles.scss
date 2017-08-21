@@ -9,3 +9,9 @@ $warn:    mat-palette($mat-red);
 $theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($theme);
+
+.dark-theme {
+  $dark-theme: mat-dark-theme($primary, $accent, $warn);
+
+  @include angular-material-theme($dark-theme);
+}
