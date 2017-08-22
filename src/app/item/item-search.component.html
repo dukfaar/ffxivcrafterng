@@ -1,0 +1,11 @@
+<md-input-container>
+  <input mdInput type="text" placeholder="Search" [(ngModel)]="searchTerm" (ngModelChange)="searchTermChanged()"/>
+</md-input-container>
+
+<md-list fxLayout="column">
+  <md-list-item *ngFor="let item of items | async" (click)="itemSelected.emit(item)">
+    {{item.name}}
+  </md-list-item>
+</md-list>
+
+<md-paginator [length]="itemCount" [pageSize]="pageSize" [pageIndex]="pageIndex" (page)="pageIndex = $event.pageIndex; fetchItemList()"></md-paginator>
