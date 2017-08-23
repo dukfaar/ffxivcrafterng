@@ -9,15 +9,15 @@ export function Debounce(debounceMs: number) {
       descriptor = Object.getOwnPropertyDescriptor(target, key) as PropertyDescriptor;
     }
 
-    if(!target.__debounceForId) target.__debounceForId = {}
-
     var originalMethod = descriptor.value;
 
     descriptor.value = function() {
-      if(!target.__debounceForId[key]) {
-        target.__debounceForId[key] = new Subject<any>()
+      if(!this.__debounceForId) this.__debounceForId = {}
 
-        target.__debounceForId[key]
+      if(!this.__debounceForId[key]) {
+        this.__debounceForId[key] = new Subject<any>()
+
+        this.__debounceForId[key]
         .debounceTime(debounceMs)
         .subscribe(args => {
           originalMethod.apply(this, args)
@@ -27,7 +27,7 @@ export function Debounce(debounceMs: number) {
       let args = []
       _.each(arguments, a => args.push(a))
 
-      target.__debounceForId[key].next(args)
+      this.__debounceForId[key].next(args)
     }
 
     return descriptor
