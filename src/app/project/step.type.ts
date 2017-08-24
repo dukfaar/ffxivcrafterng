@@ -1,6 +1,6 @@
 import { Item } from '../item/item.type'
 import { Recipe } from '../recipe/recipe.type'
-import { UserModel } from '../base/user/user.type'
+import { UserModel } from '../user/user.type'
 
 type StepType = 'Meta' | 'Gather' | 'Craft' | 'Buy'
 

@@ -7,6 +7,7 @@ import { HomeComponent } from './home/home.component'
 import { LoginComponent } from './login/login.component'
 
 import { BaseModule } from '../base/base.module'
+import { UserModule } from '../user/user.module'
 import { NewsModule } from '../news/news.module'
 import { ProjectModule } from '../project/project.module'
 
@@ -31,6 +32,7 @@ const moduleRoutes: Routes = [
     BaseModule,
     NewsModule,
     ProjectModule,
+    UserModule,
 
     RouterModule.forChild(moduleRoutes)
   ],

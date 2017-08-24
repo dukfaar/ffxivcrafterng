@@ -9,7 +9,7 @@ import { Debounce, DebounceForId } from '../debounce'
 
 import { FileUploader } from 'ng2-file-upload'
 
-import { UserTokenService } from '../base/user/user-token.service'
+import { UserTokenService } from '../user/user-token.service'
 
 import { ImageDetailDialogComponent } from './image-detail-dialog.component'
 import { MdDialog } from '@angular/material'

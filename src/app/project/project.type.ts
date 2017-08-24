@@ -14,4 +14,5 @@ export interface Project {
   tree: Step
   hiddenOnOverviewBy: string[]
   stock: ProjectStockEntry[]
+  creator: number
 }

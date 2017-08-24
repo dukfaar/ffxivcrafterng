@@ -3,7 +3,7 @@ import { Component } from '@angular/core'
 import { Observable } from 'rxjs'
 
 import { AnalysedFilteredPublicProjectsService } from '../analysed-filtered-public-projects.service'
-import { UserService } from '../../base/user/user.service'
+import { UserService } from '../../user/user.service'
 import { ProjectAnalysisData } from '../project-analysis-data.type'
 
 import * as _ from 'lodash'

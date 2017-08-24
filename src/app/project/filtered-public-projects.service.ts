@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 import { Project } from './project.type'
-import { UserService } from '../base/user/user.service'
+import { UserService } from '../user/user.service'
 
 import { PublicProjectService } from './public-projects.service'
 

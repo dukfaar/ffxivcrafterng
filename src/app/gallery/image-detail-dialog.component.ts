@@ -8,7 +8,7 @@ import { Image } from './image.type'
 import { RestService, RestResource } from '../rest'
 import { SocketService, SocketComponent } from '../socket'
 
-import { UserModel } from '../base/user/user.type'
+import { UserModel } from '../user/user.type'
 
 class Comment {
   date: Date

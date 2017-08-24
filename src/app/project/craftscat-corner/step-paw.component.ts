@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 
 import { Step } from '../step.type'
 
-import { UserService } from '../../base/user/user.service'
+import { UserService } from '../../user/user.service'
 import { RestService } from '../../rest'
 
 import * as _ from 'lodash'

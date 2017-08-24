@@ -14,6 +14,7 @@ import { SocketModule } from './socket/socket.module'
 import { ProjectModule } from './project/project.module'
 import { BotModule } from './bot/bot.module'
 import { GalleryModule } from './gallery/gallery.module'
+import { UserModule } from './user/user.module'
 
 import { WildcardRoutingModule } from './wildcard-routing/wildcard-routing.module'
 
@@ -37,6 +38,7 @@ import { RouterModule, Routes } from '@angular/router'
     ProjectModule,
     BotModule,
     GalleryModule,
+    UserModule,
     RouterModule.forRoot([]),
 
     WildcardRoutingModule //this MUST be last to work properly

@@ -9,7 +9,7 @@ import { Debounce } from '../debounce'
 import { SocketService, SocketComponent } from '../socket'
 import { RestService, RestResource } from '../rest'
 
-import { UserService } from '../base/user/user.service'
+import { UserService } from '../user/user.service'
 
 import { ProjectCreationDialogComponent } from './project-creation-dialog/project-creation-dialog.component'
 
@@ -50,11 +50,11 @@ export class PrivateProjectOverviewComponent extends SocketComponent implements 
   @Debounce(300) debouncedFetchProjects() { this.fetchProjects() }
 
   fetchProjects() {
-    this.projectResource.query({private: true, creator: this.user.getUser()._id, populate: 'creator'})
+    this.projectResource.query({private: true, creator: this.user.getUser()._id})
     .subscribe(projects => {
       this.privateProjects.next(projects)
     })
-    this.projectResource.query({sharedWith: this.user.getUser()._id, populate: 'creator'})
+    this.projectResource.query({sharedWith: this.user.getUser()._id})
     .subscribe(projects => {
       this.sharedProjects.next(projects)
     })

@@ -13,6 +13,8 @@ import { CountResponse } from './count-response.type'
 export class RestService {
   constructor(private http: HttpClient) {}
 
+  private resources: Map<string, Object> = new Map<string, Object>()
+
   private getQueryString(query: any): string {
     let paramString: string = _.join(_.map(query, (value, key) => key + '=' + value), '&')
 
@@ -20,7 +22,11 @@ export class RestService {
   }
 
   createResource<T>(resourceName: string): RestResource<T> {
-    return new RestResource<T>(resourceName, this)
+    if(!this.resources[resourceName]) {
+      this.resources[resourceName] = new RestResource<T>(resourceName, this)
+    }
+
+    return this.resources[resourceName]
   }
 
   query<T>(resourceName: string, query: any): Observable<T> {
