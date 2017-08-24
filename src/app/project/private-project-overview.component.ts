@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { MdDialog } from '@angular/material'
 
 import { BehaviorSubject } from 'rxjs'
 
@@ -9,6 +10,8 @@ import { SocketService, SocketComponent } from '../socket'
 import { RestService, RestResource } from '../rest'
 
 import { UserService } from '../base/user/user.service'
+
+import { ProjectCreationDialogComponent } from './project-creation-dialog/project-creation-dialog.component'
 
 import * as _ from 'lodash'
 
@@ -23,7 +26,7 @@ export class PrivateProjectOverviewComponent extends SocketComponent implements 
 
   projectResource: RestResource<Project>
 
-  constructor(socket: SocketService, private rest: RestService, private user: UserService) {
+  constructor(socket: SocketService, private rest: RestService, private user: UserService, private dialog: MdDialog) {
     super(socket)
 
     this.projectResource = this.rest.createResource<Project>('/api/rest/project')
@@ -58,6 +61,8 @@ export class PrivateProjectOverviewComponent extends SocketComponent implements 
   }
 
   createNewProject() {
-    console.log('open create project dialog')
+    this.dialog.open(ProjectCreationDialogComponent, {
+      width: '80%'
+    })
   }
 }

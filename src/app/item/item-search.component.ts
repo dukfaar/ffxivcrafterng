@@ -20,9 +20,8 @@ class SearchResult {
 export class ItemSearchComponent implements OnInit {
   @Output() itemSelected: EventEmitter<Item> = new EventEmitter<Item>()
 
-  searchTerm: String
+  searchTerm: string = ''
   items: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([])
-  private itemResource: RestResource<Item>
 
   itemCount: number = 0
   pageSize: number = 10
@@ -35,7 +34,7 @@ export class ItemSearchComponent implements OnInit {
 
   @Debounce(300)
   searchTermChanged() {
-    if(this.searchTerm.length > 0) this.fetchItemList()
+    if(this.searchTerm && this.searchTerm.length > 0) this.fetchItemList()
   }
 
   fetchItemList() {

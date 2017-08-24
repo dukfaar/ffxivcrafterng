@@ -1,0 +1,37 @@
+<h1 md-dialog-title>Create a new project</h1>
+
+<md-dialog-content>
+  <div fxLayout="row" fxLayoutGap="1em">
+    <div fxFlex="25%">
+      <h2>Add items</h2>
+      <item-search (itemSelected)="itemSelected($event)"></item-search>
+    </div>
+
+    <div fxFlex="50%">
+      <h2>Your current cart</h2>
+      <md-list>
+        <md-list-item *ngFor="let cartEntry of cart; let i = index;">
+          <md-input-container>
+            <input mdInput type="number" placeholder="Amount" [(ngModel)]="cartEntry.amount"/>
+          </md-input-container>
+          <div fxFlex>
+            {{cartEntry.item.name}}
+          </div>
+          <button md-icon-button (click)="deleteCartEntry(cartEntry, i)"><md-icon>delete</md-icon></button>
+        </md-list-item>
+      </md-list>
+    </div>
+
+    <div fxFlex="25%">
+      <h2>Name your project</h2>
+      <md-input-container>
+        <input mdInput placeholder="Name" type="text" [(ngModel)]="projectName" />
+      </md-input-container>
+    </div>
+  </div>
+</md-dialog-content>
+
+<md-dialog-actions>
+  <button md-button md-dialog-close>Cancel</button>
+  <button md-button (click)="createOrderFromCart()">Create Project</button>
+</md-dialog-actions>

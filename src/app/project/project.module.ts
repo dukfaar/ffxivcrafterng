@@ -22,6 +22,8 @@ import { PrivateProjectOverviewComponent } from './private-project-overview.comp
 import { ProjectGridComponent } from './project-grid/project-grid.component'
 import { ProjectCardComponent } from './project-grid/project-card.component'
 
+import { ProjectCreationDialogComponent } from './project-creation-dialog/project-creation-dialog.component'
+
 import { RestModule } from '../rest'
 
 import { RouterModule, Routes } from '@angular/router'
@@ -38,7 +40,8 @@ const moduleRoutes: Routes = [
     StepPawComponent,
     PrivateProjectOverviewComponent,
     ProjectGridComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ProjectCreationDialogComponent
   ],
   imports: [
     MaterialModule,
@@ -64,7 +67,11 @@ const moduleRoutes: Routes = [
     StepPawComponent,
     PrivateProjectOverviewComponent,
     ProjectGridComponent,
-    ProjectCardComponent
+    ProjectCardComponent,
+    ProjectCreationDialogComponent
+  ],
+  entryComponents: [
+    ProjectCreationDialogComponent
   ]
 })
 export class ProjectModule {
