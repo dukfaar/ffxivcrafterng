@@ -6,7 +6,7 @@
   </md-card-content>
 
   <md-card-actions>
-    <button md-button>Go to reporting</button>
-    <button md-button>Go to project</button>
+    <button md-button [routerLink]="['/reporting/project', project._id]">Go to reporting</button>
+    <button md-button [routerLink]="['/project', project._id]">Go to project</button>
   </md-card-actions>
 </md-card>

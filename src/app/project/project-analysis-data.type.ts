@@ -18,9 +18,9 @@ export class ProjectAnalysisData {
   buyListArray: BuyListEntry[] = []
   craftableSteps: CraftableStep[] = []
   craftableStepsList: CraftableStep[] = []
-  filteredBuyListArray: BuyListEntry[] = []
-  filteredCraftableStepsList: CraftableStep[] = []
-  filteredGatherListArray: GatherListEntry[] = []
+  filteredBuyListArray: BuyListEntry[] = [] //remove once it has been moved out of the craftscat corner
+  filteredCraftableStepsList: CraftableStep[] = [] //remove once it has been moved out of the craftscat corner
+  filteredGatherListArray: GatherListEntry[] = [] //remove once it has been moved out of the craftscat corner
   unallocatedStock: ProjectStockEntry[] = []
   totalCost: number
   revenue: number

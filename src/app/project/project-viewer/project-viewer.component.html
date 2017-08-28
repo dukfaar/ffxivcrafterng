@@ -1,0 +1,46 @@
+<div class="page-padding" fxLayout="row" fxLayoutGap="1em">
+  <div fxLayout="column" fxFlex="25%" fxLayoutGap="1em">
+    <md-card>
+      <h2 md-card-title>Crafting Tree</h2>
+
+      <md-card-content>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div fxLayout="column" fxFlex="25%" fxLayoutGap="1em">
+    <md-card>
+      <h2 md-card-title>Craftable</h2>
+      <md-card-content>
+        <project-craftable-list [analysisData]="analysisData"></project-craftable-list>
+      </md-card-content>
+    </md-card>
+
+    <md-card>
+      <h2 md-card-title>Gatherable</h2>
+      <md-card-content>
+        <project-gatherable-list [analysisData]="analysisData"></project-gatherable-list>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div fxLayout="column" fxFlex="25%" fxLayoutGap="1em">
+    <md-card>
+      <h2>Stock</h2>
+      <md-card-content>
+        <project-stock-list [analysisData]="analysisData"></project-stock-list>
+      </md-card-content>
+    </md-card>
+  </div>
+
+  <div fxLayout="column" fxFlex="25%" fxLayoutGap="1em">
+    <md-card>
+      <h2 md-card-title>Settings</h2>
+      <md-card-content fxLayout="column">
+        <md-input-container>
+          <input mdInput placeholder="Name" type="text" [(ngModel)]="analysisData?.project.name" />
+        </md-input-container>
+      </md-card-content>
+    </md-card>
+  </div>
+</div>

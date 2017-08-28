@@ -10,15 +10,7 @@ import { CraftableStep } from './craftable-step.type'
 
 import * as _ from 'lodash'
 
-class StepData {
-  amountDone: number
-  neededAmount: number
-  neededSteps: number
-  maxSteps: number
-  neededInputs: {}
-  availableInputs: {}
-  neededItems: {}
-}
+import { StepData } from './step-data.type'
 
 @Injectable()
 export class ProjectAnalysisService {
@@ -161,7 +153,6 @@ export class ProjectAnalysisService {
       analysisData.deductFromUnallocatedStock(step.item._id, step.amount, step.hq)
     }
   }
-
 
   private metaStep(step: Step, analysisData: ProjectAnalysisData): void {
     _.each(step.inputs, (input) => {

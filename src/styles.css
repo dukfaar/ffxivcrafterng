@@ -16,3 +16,7 @@ app-root {
   -ms-flex-direction: column;
   flex-direction: column;
 }
+
+.page-padding {
+  padding:1em;
+}
