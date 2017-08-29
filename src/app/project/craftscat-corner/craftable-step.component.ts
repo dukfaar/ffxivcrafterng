@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core'
 
 import { CraftableStep } from '../craftable-step.type'
 
+import { ItemDataService } from '../../item/item-data.service'
+
 @Component({
   selector: 'craftable-step',
   templateUrl: 'craftable-step.component.html'
@@ -9,7 +11,7 @@ import { CraftableStep } from '../craftable-step.type'
 export class CraftableStepComponent {
   @Input() step: CraftableStep
 
-  constructor() {
+  constructor(public itemData: ItemDataService) {
 
   }
 

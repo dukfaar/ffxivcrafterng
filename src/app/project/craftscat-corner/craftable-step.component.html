@@ -1,7 +1,7 @@
 <button fxFlexFill md-button style="padding-left: 1em" *ngIf="step.step.amount >= 1" (click)="clicked()">
   <div fxLayout="row" fxFlexFill fxLayoutAlign="start center">
     <div>
-      {{step.step.amount}} {{step.step.item.name}}
+      {{step.step.amount}} {{(itemData.get(step.step.item._id) | async)?.name}}
     </div>
     <div fxFlex></div>
     <step-paw [step]="step.step.step"></step-paw>

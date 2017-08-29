@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core'
 
 import { GatherListEntry } from '../gatherlist-entry.type'
 
+import { ItemDataService } from '../../item/item-data.service'
+
 @Component({
   selector: 'gatherable-step',
   templateUrl: 'gatherable-step.component.html'
@@ -9,7 +11,7 @@ import { GatherListEntry } from '../gatherlist-entry.type'
 export class GatherableStepComponent {
   @Input() step: GatherListEntry
 
-  constructor() {
+  constructor(public itemData: ItemDataService) {
 
   }
 
