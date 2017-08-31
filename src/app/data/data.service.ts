@@ -6,7 +6,7 @@ export class DataService<T> {
   constructor(private restService: RestResource<T>) {}
 
   protected fetch(id: string) {
-    this.restService.get(id).subscribe(result => this.replace(id,result) )
+    this.restService.get(id).subscribe(result => this.replace(id,result))
   }
 
   protected isReplaySubjectAvailable(id: string): boolean {

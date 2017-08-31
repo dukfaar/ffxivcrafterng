@@ -35,6 +35,7 @@ import { ProjectGatherableListComponent } from './project-viewer/project-gathera
 import { ProjectStockListComponent } from './project-viewer/project-stock-list.component'
 
 import { StepDataService } from './step-data.service'
+import { ProjectDataService } from './project-data.service'
 
 const moduleRoutes: Routes = [
   { path: 'project/private', component: PrivateProjectOverviewComponent },
@@ -74,7 +75,8 @@ const moduleRoutes: Routes = [
     ObservableProjectAnalysisService,
     FilteredPublicProjectsService,
     AnalysedFilteredPublicProjectsService,
-    StepDataService
+    StepDataService,
+    ProjectDataService
   ],
   exports: [
     CraftscatCornerComponent,
