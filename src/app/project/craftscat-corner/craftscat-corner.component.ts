@@ -18,6 +18,7 @@ export class CraftscatCornerComponent {
   public analysedFilteredProjectList: Observable<ProjectAnalysisData[]>
 
   filterProjects(analysedProjectList): ProjectAnalysisData[] {
+    console.log(analysedProjectList)
     return _.map(analysedProjectList, (analysedProject:ProjectAnalysisData) => {
       let filterRegex = new RegExp(this.filterText, 'i')
 

@@ -20,7 +20,6 @@ import * as _ from 'lodash'
 @Injectable()
 export class PublicProjectService {
   private projectRestEndpoint: string = '/api/rest/project'
-  list: BehaviorSubject<Project[]> = new BehaviorSubject<Project[]>([])
   idList: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
   projectList: Observable<BehaviorSubject<Project>[]>
   projectResource: RestResource<Project>
@@ -34,17 +33,7 @@ export class PublicProjectService {
     private userService: UserService
   ) {
     this.projectResource = this.rest.createResource<Project>(this.projectRestEndpoint)
-    this.fetchPublicProjects()
     this.fetchPublicProjectIds()
-
-    this.socket.on('project stock changed', () => this.debouncedFetchPublicProjects())
-    this.socket.on('project step data changed', () => this.debouncedFetchPublicProjects())
-    this.socket.on('project data changed', () => this.debouncedFetchPublicProjects())
-    this.socket.on('new project created', () => this.debouncedFetchPublicProjects())
-    this.socket.on('CraftingProject created', () => this.debouncedFetchPublicProjects())
-    this.socket.on('CraftingProject deleted', () => this.debouncedFetchPublicProjects())
-    this.socket.on('CraftingProject updated', () => this.debouncedFetchPublicProjects())
-    this.socket.on('project deleted', () => this.debouncedFetchPublicProjects())
 
     this.socket.on('new project created', () => this.debouncedFetchPublicProjectIds())
     this.socket.on('project data changed', () => this.debouncedFetchPublicProjectIds())
@@ -60,7 +49,6 @@ export class PublicProjectService {
     })
   }
 
-  @Debounce(300) debouncedFetchPublicProjects() { this.fetchPublicProjects() }
   @Debounce(300) debouncedFetchPublicProjectIds() { this.fetchPublicProjectIds() }
 
   fetchPublicProjectIds() {
@@ -76,13 +64,6 @@ export class PublicProjectService {
       let [publicProjects, sharedProjects, ownProjects] = response
       let projects = _.uniq(_.concat(publicProjects, sharedProjects, ownProjects))
       this.idList.next(projects)
-    })
-  }
-
-  fetchPublicProjects() {
-    this.http.get<Project[]>('/api/project/public')
-    .subscribe(response => {
-      //this.list.next(response)
     })
   }
 }
